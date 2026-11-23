@@ -1,1 +1,501 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ROXARA X | Professional Farm Dashboard</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+ font-family:Arial,sans-serif;
+ background:#080b18;color:white;line-height:1.6
+}
+:root{
+ --purple:#9b72ff;--blue:#548cff;
+ --muted:#aab2c8;--panel:#11172b
+}
+nav{
+ display:flex;justify-content:space-between;align-items:center;
+ padding:18px 6%;position:sticky;top:0;z-index:10;
+ background:#080b18ed;border-bottom:1px solid #252b42
+}
+.logo{font-size:23px;font-weight:800}
+.logo span{color:var(--purple)}
+.links{display:flex;gap:18px;flex-wrap:wrap}
+.links a{color:#d5d9e8;text-decoration:none;font-size:13px}
+.links a:hover{color:var(--purple)}
+.hero{
+ padding:75px 8%;min-height:350px;
+ background:radial-gradient(ellipse at 80% 30%,#34205f,transparent 50%),
+ radial-gradient(ellipse at 15% 90%,#122d58,transparent 50%)
+}
+.eyebrow{color:#c2aaff;letter-spacing:3px;font-size:12px}
+h1{font-size:clamp(40px,7vw,68px);line-height:1.15;margin:18px 0}
+h1 span{
+ background:linear-gradient(90deg,#b18aff,#65a9ff);
+ -webkit-background-clip:text;color:transparent
+}
+.hero p{color:var(--muted);max-width:650px}
+section{padding:60px 7%}
+.heading{text-align:center;margin-bottom:35px}
+.heading h2{font-size:30px}
+.heading p{color:var(--muted);margin-top:7px}
+.panel{
+ max-width:1000px;margin:auto;padding:25px;
+ border:1px solid #303958;border-radius:17px;
+ background:linear-gradient(145deg,#171e37,#101426)
+}
+label{display:block;margin:17px 0 7px;color:#dce1f3;font-weight:bold}
+input,select{
+ width:100%;padding:13px;border-radius:8px;
+ border:1px solid #394361;background:#0b1224;
+ color:white;font-size:15px
+}
+button{
+ border:0;border-radius:9px;padding:13px 20px;
+ background:linear-gradient(100deg,#8054e9,#438bff);
+ color:white;font-weight:bold;font-size:14px;
+ cursor:pointer;margin-top:20px
+}
+button:hover{opacity:.9}
+.dashboard-grid{
+ display:grid;grid-template-columns:repeat(3,1fr);
+ gap:15px;margin-top:20px
+}
+.stat{
+ padding:20px;border-radius:13px;
+ background:#0b1224;border:1px solid #303958;
+ min-width:0
+}
+.stat small{color:var(--muted)}
+.stat h3{font-size:22px;margin-top:8px;overflow-wrap:anywhere}
+.stat-icon{font-size:25px}
+.status{
+ display:inline-block;margin-top:12px;padding:6px 12px;
+ border-radius:30px;background:#263c35;color:#9ef0bd;
+ font-size:12px;font-weight:bold
+}
+.history-item{
+ padding:17px;margin-top:12px;
+ background:#0b1224;border:1px solid #303958;
+ border-radius:10px
+}
+.history-item p{color:var(--muted);font-size:14px}
+.history-item strong{color:white}
+.note{color:var(--muted);font-size:12px;margin-top:18px}
+.empty{color:var(--muted);text-align:center;padding:20px}
+.subheading{font-size:20px;margin:30px 0 12px}
+.crop-row{
+ display:flex;justify-content:space-between;gap:12px;
+ padding:13px;margin-top:9px;border-radius:9px;
+ background:#0b1224;border:1px solid #303958
+}
+.crop-row span:last-child{color:#c2aaff;font-weight:bold}
+.latest-record{
+ padding:15px;margin-top:10px;border-radius:10px;
+ background:#0b1224;border:1px solid #303958
+}
+.latest-record p{font-size:13px;color:var(--muted)}
+.latest-record strong{color:white}
+footer{
+ text-align:center;padding:30px;
+ border-top:1px solid #252b42;color:var(--muted);font-size:13px
+}
+@media(max-width:650px){
+ nav{align-items:flex-start;gap:12px;flex-direction:column}
+ .dashboard-grid{grid-template-columns:repeat(2,1fr)}
+ section{padding:45px 6%}
+ .panel{padding:17px}
+ .stat{padding:14px}
+ .stat h3{font-size:18px}
+}
+@media(max-width:380px){
+ .dashboard-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+ <div class="logo">✦ ROXARA <span>X</span></div>
+ <div class="links">
+  <a href="#home">Home</a>
+  <a href="#farm">Farm Form</a>
+  <a href="#dashboard">Dashboard</a>
+  <a href="#history">History</a>
+ </div>
+</nav>
+
+<header class="hero" id="home">
+ <div class="eyebrow">ROCKSTAR TECHNOLOGIES PRESENTS</div>
+ <h1>Smart <span>Irrigation.</span></h1>
+ <p>
+  Smarter farm information. Thoughtful water management.
+  A ROXARA X initiative to explore practical agricultural solutions.
+ </p>
+</header>
+
+<section id="farm">
+ <div class="heading">
+  <h2>🌱 Farm Information</h2>
+  <p>Enter your farm details to create a dashboard record.</p>
+ </div>
+
+ <div class="panel">
+  <form id="farmForm">
+   <label for="farmer">Farmer Name</label>
+   <input id="farmer" required maxlength="60" placeholder="Enter farmer name">
+
+   <label for="village">Village</label>
+   <input id="village" required maxlength="60" placeholder="Enter village name">
+
+   <label for="crop">Crop</label>
+   <select id="crop" required>
+    <option value="">Select crop</option>
+    <option>Wheat</option>
+    <option>Cotton</option>
+    <option>Soybean</option>
+    <option>Rice</option>
+    <option>Other</option>
+   </select>
+
+   <label for="moisture">Soil Moisture Condition</label>
+   <select id="moisture" required>
+    <option value="">Select soil condition</option>
+    <option value="dry">Dry</option>
+    <option value="normal">Moderately moist</option>
+    <option value="wet">Wet</option>
+   </select>
+
+   <button type="submit">Update Farm Dashboard →</button>
+  </form>
+
+  <p class="note">
+   Note: Soil condition is entered manually. No physical soil sensor is connected.
+  </p>
+ </div>
+</section>
+
+<section id="dashboard">
+ <div class="heading">
+  <h2>📊 Professional Farm Dashboard</h2>
+  <p>Overview of all farm records saved in this browser.</p>
+ </div>
+
+ <div class="panel">
+  <h3>📈 Farm Overview</h3>
+  <div class="dashboard-grid">
+   <div class="stat">
+    <div class="stat-icon">📁</div>
+    <small>Total Farm Records</small>
+    <h3 id="totalRecords">0</h3>
+   </div>
+   <div class="stat">
+    <div class="stat-icon">👨‍🌾</div>
+    <small>Unique Farmers</small>
+    <h3 id="totalFarmers">0</h3>
+   </div>
+   <div class="stat">
+    <div class="stat-icon">🌾</div>
+    <small>Crop Types</small>
+    <h3 id="totalCrops">0</h3>
+   </div>
+   <div class="stat">
+    <div class="stat-icon">☀️</div>
+    <small>Dry Soil Records</small>
+    <h3 id="dryRecords">0</h3>
+   </div>
+   <div class="stat">
+    <div class="stat-icon">💧</div>
+    <small>Moderately Moist</small>
+    <h3 id="normalRecords">0</h3>
+   </div>
+   <div class="stat">
+    <div class="stat-icon">🌧️</div>
+    <small>Wet Soil Records</small>
+    <h3 id="wetRecords">0</h3>
+   </div>
+  </div>
+
+  <h3 class="subheading">🌾 Crop-wise Records</h3>
+  <div id="cropOverview">
+   <p class="empty">No crop records available.</p>
+  </div>
+
+  <h3 class="subheading">🕒 Latest Farm Entries</h3>
+  <div id="latestEntries">
+   <p class="empty">No recent entries available.</p>
+  </div>
+ </div>
+
+ <div class="heading" style="margin-top:45px">
+  <h2>📋 Latest Farm Information</h2>
+  <p>Your most recently submitted farm record.</p>
+ </div>
+
+ <div class="panel">
+  <div id="dashboardContent" class="empty">
+   No farm information yet. Submit the form above to get started.
+  </div>
+ </div>
+</section>
+
+<section id="history">
+ <div class="heading">
+  <h2>📁 Previous Records</h2>
+  <p>Review your earlier farm entries.</p>
+ </div>
+
+ <div class="panel">
+  <div id="historyContent" class="empty">
+   No previous records available.
+  </div>
+  <button type="button" id="clearHistory"
+   style="background:#713b50">Clear All Records</button>
+ </div>
+</section>
+
+<footer>
+ <div class="logo">✦ ROXARA <span>X</span></div>
+ <p>100+ Problems. One Mission. A Better World.</p>
+ <p style="margin-top:8px">An initiative of Rockstar Technologies</p>
+ <p style="margin-top:12px">© 2026 ROXARA X</p>
+</footer>
+
+<script>
+const form = document.getElementById("farmForm");
+const dashboard = document.getElementById("dashboardContent");
+const historyBox = document.getElementById("historyContent");
+
+let records = [];
+
+try {
+ records = JSON.parse(localStorage.getItem("roxaraFarmRecords")) || [];
+ if (!Array.isArray(records)) records = [];
+} catch(error) {
+ records = [];
+}
+
+function saveRecords(){
+ try {
+  localStorage.setItem("roxaraFarmRecords",JSON.stringify(records));
+ } catch(error) {
+  alert("Records could not be saved in this browser.");
+ }
+}
+
+function makeElement(tag,text,className){
+ const element=document.createElement(tag);
+ element.textContent=text;
+ if(className) element.className=className;
+ return element;
+}
+
+function getAdvice(moisture){
+ if(moisture==="dry"){
+  return "Soil is reported as dry. Check crop requirements and local agricultural guidance before irrigation.";
+ }
+ if(moisture==="normal"){
+  return "Soil is reported as moderately moist. Continue monitoring crop and soil conditions.";
+ }
+ return "Soil is reported as wet. Check drainage and avoid unnecessary watering.";
+}
+
+function showDashboard(record){
+ dashboard.replaceChildren();
+ dashboard.className="";
+
+ const grid=document.createElement("div");
+ grid.className="dashboard-grid";
+
+ const items=[
+  ["👨‍🌾","Farmer",record.name],
+  ["📍","Village",record.village],
+  ["🌾","Crop",record.crop],
+  ["💧","Soil Condition",record.moistureLabel],
+  ["📅","Record Date",record.date],
+  ["📊","Irrigation Status",record.status]
+ ];
+
+ items.forEach(item=>{
+  const card=document.createElement("div");
+  card.className="stat";
+  card.append(
+   makeElement("div",item[0],"stat-icon"),
+   makeElement("small",item[1]),
+   makeElement("h3",item[2])
+  );
+  grid.append(card);
+ });
+
+ dashboard.append(grid);
+
+ const advice=makeElement("p",record.advice);
+ advice.style.marginTop="22px";
+ advice.style.color="#c2cbe0";
+ dashboard.append(advice);
+
+ dashboard.append(makeElement(
+  "p",
+  "Information is based on manual input, not live sensor readings.",
+  "note"
+ ));
+}
+
+function showOverview(){
+ const uniqueFarmers=new Set(
+  records.map(r=>(r.name||"").trim().toLowerCase())
+ );
+
+ const uniqueCrops=new Set(records.map(r=>r.crop));
+
+ document.getElementById("totalRecords").textContent=records.length;
+ document.getElementById("totalFarmers").textContent=uniqueFarmers.size;
+ document.getElementById("totalCrops").textContent=uniqueCrops.size;
+
+ document.getElementById("dryRecords").textContent=
+  records.filter(r=>r.moisture==="dry").length;
+
+ document.getElementById("normalRecords").textContent=
+  records.filter(r=>r.moisture==="normal").length;
+
+ document.getElementById("wetRecords").textContent=
+  records.filter(r=>r.moisture==="wet").length;
+
+ const cropBox=document.getElementById("cropOverview");
+ cropBox.replaceChildren();
+
+ if(records.length===0){
+  cropBox.append(makeElement("p","No crop records available.","empty"));
+ } else {
+  const cropCounts={};
+
+  records.forEach(record=>{
+   cropCounts[record.crop]=(cropCounts[record.crop]||0)+1;
+  });
+
+  Object.entries(cropCounts).forEach(([crop,count])=>{
+   const row=document.createElement("div");
+   row.className="crop-row";
+   row.append(
+    makeElement("span",crop),
+    makeElement("span",count+" records")
+   );
+   cropBox.append(row);
+  });
+ }
+
+ const latestBox=document.getElementById("latestEntries");
+ latestBox.replaceChildren();
+
+ if(records.length===0){
+  latestBox.append(makeElement("p","No recent entries available.","empty"));
+ } else {
+  records.slice(0,5).forEach(record=>{
+   const item=document.createElement("div");
+   item.className="latest-record";
+   item.append(
+    makeElement("strong",record.name+" — "+record.crop),
+    makeElement("p","Village: "+record.village+" | Soil: "+record.moistureLabel),
+    makeElement("p","Date: "+record.date)
+   );
+   latestBox.append(item);
+  });
+ }
+}
+
+function showHistory(){
+ historyBox.replaceChildren();
+ historyBox.className="";
+
+ if(records.length===0){
+  historyBox.append(makeElement("p","No previous records available.","empty"));
+  return;
+ }
+
+ records.forEach(record=>{
+  const item=document.createElement("div");
+  item.className="history-item";
+  item.append(
+   makeElement("strong",record.name+" — "+record.crop),
+   makeElement("p","Village: "+record.village),
+   makeElement("p","Soil: "+record.moistureLabel),
+   makeElement("p","Date: "+record.date)
+  );
+  historyBox.append(item);
+ });
+}
+
+function refreshAll(){
+ showOverview();
+ showHistory();
+
+ if(records.length>0){
+  showDashboard(records[0]);
+ } else {
+  dashboard.textContent="No farm information yet. Submit the form above to get started.";
+  dashboard.className="empty";
+ }
+}
+
+form.addEventListener("submit",function(event){
+ event.preventDefault();
+
+ const name=document.getElementById("farmer").value.trim();
+ const village=document.getElementById("village").value.trim();
+ const crop=document.getElementById("crop").value;
+ const moisture=document.getElementById("moisture").value;
+
+ if(!name || !village || !crop || !moisture){
+  return;
+ }
+
+ const labels={
+  dry:"Dry",
+  normal:"Moderately moist",
+  wet:"Wet"
+ };
+
+ const statuses={
+  dry:"Needs further assessment",
+  normal:"Continue monitoring",
+  wet:"Check drainage"
+ };
+
+ const record={
+  name:name,
+  village:village,
+  crop:crop,
+  moisture:moisture,
+  moistureLabel:labels[moisture],
+  status:statuses[moisture],
+  advice:getAdvice(moisture),
+  date:new Date().toLocaleString()
+ };
+
+ records.unshift(record);
+ records=records.slice(0,30);
+ saveRecords();
+ refreshAll();
+
+ document.getElementById("dashboard").scrollIntoView({behavior:"smooth"});
+});
+
+document.getElementById("clearHistory").addEventListener("click",function(){
+ if(confirm("Clear all saved farm records from this browser?")){
+  records=[];
+  saveRecords();
+  refreshAll();
+ }
+});
+
+refreshAll();
+</script>
+
+</body>
+  </html>
+  
