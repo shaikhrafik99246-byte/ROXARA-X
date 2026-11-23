@@ -221,6 +221,93 @@ footer strong{color:#fff}
   <p style="margin-top:15px">© 2026 ROXARA X. All rights reserved.</p>
 </footer>
 
+<section id="smart-irrigation">
+  <div class="section-head">
+    <h2>🌱 Smart Irrigation</h2>
+    <p>Explore your farm's irrigation information.</p>
+  </div>
+
+  <div class="founder-box" style="max-width:600px;text-align:left">
+    <label>Farmer Name</label>
+    <input id="farmer" placeholder="Enter your name">
+
+    <label>Village</label>
+    <input id="village" placeholder="Enter village name">
+
+    <label>Crop</label>
+    <select id="crop">
+      <option value="">Select crop</option>
+      <option>Wheat</option>
+      <option>Cotton</option>
+      <option>Soybean</option>
+      <option>Rice</option>
+      <option>Other</option>
+    </select>
+
+    <label>Soil Moisture</label>
+    <select id="moisture">
+      <option value="">Select soil condition</option>
+      <option value="dry">Dry</option>
+      <option value="normal">Moderately moist</option>
+      <option value="wet">Wet</option>
+    </select>
+
+    <button class="btn" onclick="checkFarm()">Check Information</button>
+
+    <div id="result" style="margin-top:25px;color:#b9c5e0"></div>
+  </div>
+</section>
+
+<style>
+#smart-irrigation label{
+  display:block;margin-top:18px;color:#dce1f3;font-weight:bold
+}
+#smart-irrigation input,
+#smart-irrigation select{
+  width:100%;padding:13px;margin-top:8px;
+  border-radius:8px;border:1px solid #394361;
+  background:#0b1224;color:white;font-size:15px
+}
+#smart-irrigation button{border:0;cursor:pointer}
+</style>
+
+<script>
+function checkFarm(){
+  const name=document.getElementById("farmer").value.trim();
+  const village=document.getElementById("village").value.trim();
+  const crop=document.getElementById("crop").value;
+  const moisture=document.getElementById("moisture").value;
+  const result=document.getElementById("result");
+
+  if(!name || !village || !crop || !moisture){
+    result.innerHTML="Please fill in all fields.";
+    return;
+  }
+
+  let advice="";
+  if(moisture==="dry"){
+    advice="Soil is reported as dry. Check crop needs and local agricultural guidance before irrigation.";
+  }else if(moisture==="normal"){
+    advice="Soil is reported as moderately moist. Continue monitoring soil and crop conditions.";
+  }else{
+    advice="Soil is reported as wet. Check drainage and avoid unnecessary watering.";
+  }
+
+  result.innerHTML="<h3>Farm Information</h3>"+
+    "<p>Farmer: "+escapeText(name)+"</p>"+
+    "<p>Village: "+escapeText(village)+"</p>"+
+    "<p>Crop: "+escapeText(crop)+"</p>"+
+    "<p style='margin-top:12px'>"+advice+"</p>"+
+    "<small>These are general informational suggestions, not sensor measurements or expert agricultural advice.</small>";
+}
+
+function escapeText(value){
+  return value.replace(/[&<>"']/g,function(c){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+  });
+}
+</script>
+  
 </body>
       </html>
   
