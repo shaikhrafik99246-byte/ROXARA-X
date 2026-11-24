@@ -560,7 +560,7 @@ form.addEventListener("submit",async function(event){
 // ==================================
 
 async function initializeApp(){
- if(SUPABASE_KEY === "PASTE_YOUR_SUPABASE_PUBLISHABLE_KEY_HERE"){
+ if(SUPABASE_KEY === ""){
   showMessage(authMessage,"Add your Supabase Publishable Key in the code before using the app.","error");
   return;
  }
